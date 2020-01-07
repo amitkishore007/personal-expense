@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,6 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.pink
+      ),
       home: MyHomePage(),
     );
   }
@@ -22,8 +26,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [];
 
-  addTransaction(String title, String amount) {
-    if (title.isEmpty || amount.isEmpty) {
+  addTransaction(String title, String amount, DateTime date) {
+    if (title.isEmpty || amount.isEmpty || date == null) {
       return;
     }
 
@@ -32,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         amount: double.parse(amount),
         title: title,
         id: DateTime.now().toString(),
-        date: DateTime.now(),
+        date: date,
       );
 
       this.transactions.add(transaction);
@@ -73,20 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'Chart area!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
+              Chart(this.transactions),
               this.transactions.length != 0
                   ? TransactionList(this.transactions)
                   : Container(

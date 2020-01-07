@@ -28,15 +28,16 @@ class TransactionList extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: Colors.purple,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                     child: Text(
                       '\$${tnx.amount.toStringAsFixed(2)}',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                   Column(
